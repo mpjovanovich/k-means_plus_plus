@@ -1,0 +1,6 @@
+X <- read.table('results_compiled.txt',sep=' ',header=FALSE)
+k_std <- X[X$V4==1,]
+k_plus <- X[X$V4==2,]
+df=data.frame(k_std[,12],k_plus[,12])
+colnames(df) <- c('k-means','k-means++')
+boxplot(df,xlab='Algorithm',ylab='Scaled Sum of Squared Error',main='Comparison of Average SSE by Algorithm')
