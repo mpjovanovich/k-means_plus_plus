@@ -1,4 +1,36 @@
-# k-means++ demo
+##########################################################################
+# DESCRIPTION:
+# This program shows the results of using the kmeans++ algoritm # 
+# (http://ilpubs.stanford.edu:8090/778/1/2006-13.pdf) in comparison to the 
+# standard k-means algorithm. Results are shown graphically when run 
+# with the dimension parameter set to "2". In all cases the program prints
+# the number of iterations to convergance and the squared error of the point
+# set.
+# 
+# ARGUMENTS:
+# 1) total number of points
+# 2) number of dimensions / degrees of freedom for points 
+# 3) k (number of groupings)
+# 4) init method (1=normal kmeans, 2=kmeans++)
+# 5) random seed value for selecting points
+# 6) random seed value for selecting start centers
+#
+# EXAMPLES:
+# The points are the same for these (since the random seed is "7"). 
+# Changing the random seed for the center start points, we see that kmeans++ 
+# consistently has better groupings.
+#
+# The first of these pairings is standard; the second is k-means++ (see arguments):
+#
+# python3 kmeans.py 300 2 5 1 7 2 
+# python3 kmeans.py 300 2 5 2 7 2
+#
+# python3 kmeans.py 300 2 5 1 7 3 
+# python3 kmeans.py 300 2 5 2 7 3
+#
+# python3 kmeans.py 300 2 5 1 7 5 
+# python3 kmeans.py 300 2 5 2 7 5
+##########################################################################
 
 import sys
 import numpy as np
@@ -10,7 +42,7 @@ SPREAD_VALUE = 30.0
 adds = 0   # this has global scope
 iters = 0   # this has global scope
 
-# This takes an np array and returns an np array
+# This method takes an np array and returns an np array
 # of k randomly chosen start points
 def randomInit(points,k):
     chosen = []
@@ -25,7 +57,7 @@ def randomInit(points,k):
             break
     return centers
 
-# This takes an np array and returns an np array
+# This method takes an np array and returns an np array
 # of k++ chosen centers
 def kPlusPlusInit(points,k):
     global adds
@@ -94,6 +126,7 @@ def kMeans(points,centers):
 
     return assignments, centers
 
+# The main method is the entry point for the program
 def main():
     global iters
 
