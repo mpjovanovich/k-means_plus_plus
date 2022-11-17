@@ -14,6 +14,7 @@
 # 4) init method (1=normal kmeans, 2=kmeans++)
 # 5) random seed value for selecting points
 # 6) random seed value for selecting start centers
+# 7) name for exported (png) image file
 #
 # EXAMPLES:
 # The points are the same for these (since the random seed is "7"). 
@@ -22,14 +23,14 @@
 #
 # The first of these pairings is standard; the second is k-means++ (see arguments):
 #
-# python3 kmeans.py 300 2 5 1 7 2 
-# python3 kmeans.py 300 2 5 2 7 2
+# python3 kmeans.py 300 2 5 1 7 2 result_standard.png
+# python3 kmeans.py 300 2 5 2 7 2 result_plus_plus.png
 #
-# python3 kmeans.py 300 2 5 1 7 3 
-# python3 kmeans.py 300 2 5 2 7 3
+# python3 kmeans.py 300 2 5 1 7 3 result_standard.png
+# python3 kmeans.py 300 2 5 2 7 3 result_plus_plus.png
 #
-# python3 kmeans.py 300 2 5 1 7 5 
-# python3 kmeans.py 300 2 5 2 7 5
+# python3 kmeans.py 300 2 5 1 7 5 result_standard.png
+# python3 kmeans.py 300 2 5 2 7 5 result_plus_plus.png
 ##########################################################################
 
 import sys
@@ -131,7 +132,7 @@ def main():
     global iters
 
     # Get command line args
-    if len(sys.argv) != 7:
+    if len(sys.argv) != 8:
         print('Must provide arguments for n, d, k, initialization method, points seed, and centers seed')
         return
 
@@ -141,6 +142,7 @@ def main():
     init_method = int(sys.argv[4])
     points_seed = int(sys.argv[5])
     centers_seed = int(sys.argv[6])
+    image_path = sys.argv[7]
     points_per_cluster = int(max(1,(n-k)/k))
 
     np.random.seed(points_seed)
@@ -189,9 +191,8 @@ def main():
     '''
     
     # Plot results if this is 2d
-    # Comment if you don't want this behavoir
-    if d == 2:
+    if d == 2 and image_path != "":
         plt.scatter(points[:,0],points[:,1],c=assignments)
-        plt.show()
+        plt.savefig( image_path )
 
 main()
